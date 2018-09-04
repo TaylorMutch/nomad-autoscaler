@@ -4,10 +4,8 @@ This tool allows you to launch a Nomad job that performs autoscaling for your ot
 
 This tool allows you to:
 * Launch an autoscaling job 
-
-# Owner
-
-@taylorm
+* Configure scaling parameters
+* Scale up / down pods and host resources
 
 ## Notes / Open Questions
 
