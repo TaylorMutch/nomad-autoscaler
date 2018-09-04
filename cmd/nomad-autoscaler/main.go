@@ -3,15 +3,24 @@ package main
 import (
 	"flag"
 	"log"
+	"os"
 
-	nomad "github.com/TaylorMutch/nomad-autoscaler/pkg/nomadutil"
+	"github.com/mitchellh/cli"
 )
 
 func main() {
 	flag.Parse()
 
-	_ = nomad.NewClient()
+	c := cli.NewCLI("nomad-autoscaler", "0.0.1")
+	c.Args = os.Args[1:]
+	c.Commands = map[string]cli.CommandFactory{
+		"scale": ScaleCommand,
+	}
 
-	log.Print("Initialized!")
+	exitStatus, err := c.Run()
+	if err != nil {
+		log.Println(err)
+	}
 
+	os.Exit(exitStatus)
 }
