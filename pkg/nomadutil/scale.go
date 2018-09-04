@@ -3,24 +3,27 @@ package nomadutil
 import (
 	"fmt"
 
+	"github.com/golang/glog"
 	"github.com/pkg/errors"
 )
 
 // Scale updates the job count for a Nomad job.
 func (c *Client) Scale(jobid string, count int) error {
 
+	// Retrieve the job info
 	job, _, err := c.Jobs.Info(jobid, nil)
 	if err != nil {
 		return errors.Wrap(err, "Error retrieving job info")
 	}
 
-	taskGroup := job.TaskGroups[0]
-
-	if count == *taskGroup.Count {
+	// Check if the job count is the same
+	if count == *job.TaskGroups[0].Count {
 		fmt.Println("Count is the same, nothing to be done.")
 		return nil
 	}
 
+	// Update the job's Count
+	// TODO - how do split counts by task groups?
 	job.TaskGroups[0].Count = &count
 
 	res, _, err := c.Jobs.Register(job, nil)
@@ -28,7 +31,10 @@ func (c *Client) Scale(jobid string, count int) error {
 		return errors.Wrap(err, "Error registering updated job")
 	}
 
-	fmt.Printf("%v\n", res)
+	// Report any warnings about the updated job to the user
+	if res.Warnings != "" {
+		glog.Infof("Updated job registered with warnings: %v", res.Warnings)
+	}
 
 	return nil
 }
