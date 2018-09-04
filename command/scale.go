@@ -1,4 +1,4 @@
-package main
+package command
 
 import (
 	"fmt"
@@ -14,11 +14,11 @@ type ScaleCommand struct {
 }
 
 func (cmd *ScaleCommand) Help() string {
-	return "Help me!"
+	return ""
 }
 
 func (cmd *ScaleCommand) Synopsis() string {
-	return "Synopsis!"
+	return "Manually scale a deployment"
 }
 
 func (cmd *ScaleCommand) Run(args []string) int {

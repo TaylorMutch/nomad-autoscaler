@@ -12,7 +12,7 @@ import (
 
 var (
 	nomadAddress = flag.String("address", os.Getenv("NOMAD_ADDR"), "The address for the Nomad HTTP API Endpoint. Default is `NOMAD_ADDR`.")
-	nomadRegion  = flag.String("region", os.Getenv("NOMAD_REGION"), "The region for where we want to perform Nomad job scaling.")
+	nomadRegion  = flag.String("region", os.Getenv("NOMAD_REGION"), "The region for where we want to perform Nomad job scaling. Default is `NOMAD_REGION`.")
 )
 
 // Client is a wrapper around the Nomad Client api
