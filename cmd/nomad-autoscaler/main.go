@@ -14,7 +14,9 @@ func main() {
 	c := cli.NewCLI("nomad-autoscaler", "0.0.1")
 	c.Args = os.Args[1:]
 	c.Commands = map[string]cli.CommandFactory{
-		"scale": ScaleCommand,
+		"scale": func() (cli.Command, error) {
+			return &ScaleCommand{}, nil
+		},
 	}
 
 	exitStatus, err := c.Run()
