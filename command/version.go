@@ -4,13 +4,11 @@ import (
 	"fmt"
 
 	"github.com/TaylorMutch/nomad-autoscaler/version"
-	"github.com/mitchellh/cli"
 )
 
 // VersionCommand is a Command implementation prints the version.
 type VersionCommand struct {
 	Version *version.VersionInfo
-	Ui      cli.Ui
 }
 
 func (c *VersionCommand) Help() string {
@@ -20,7 +18,6 @@ func (c *VersionCommand) Help() string {
 func (c *VersionCommand) Name() string { return "version" }
 
 func (c *VersionCommand) Run(_ []string) int {
-	//c.Ui.Output(c.Version.FullVersionNumber(true))
 	fmt.Println(c.Version.FullVersionNumber(true))
 	return 0
 }
