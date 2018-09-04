@@ -4,8 +4,16 @@ My original motivation for developing this tool was to perform simple autoscalin
 
 The MVP for this tool is to have the following functionality:
 
-* Launch a Nomad job that performs autoscaling based on CPU and Memory usage within a static group of resources (pod-level autoscaling).
-* Utilize `meta` tags with a Nomad job "task" to specify upper and lower scaling bounds, minimum and maximum pod counts, and time to wait before scaling up or down a deployment.
+- [x] Enable manual scaling of a job from a CLI.
+
+- [ ] Enable launching a Nomad job that performs autoscaling based on
+    - [ ] CPU usage
+    - [ ] Memory Usage
+    
+- [ ] Utilize `meta` tags with a Nomad job "task" to control:
+    - [ ] Upper/lower scaling bounds for the specific metrics (CPU,  Memory)
+    - [ ] Minimum/maximum pod counts
+    - [ ] Time to wait before scaling up or down a deployment
 
 Stretch goals for the tool would include:
 
