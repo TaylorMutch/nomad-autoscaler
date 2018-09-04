@@ -27,6 +27,4 @@ func TestNewClient(t *testing.T) {
 	assert.NoError(t, err)
 	fmt.Printf("Leader: %v\n", leader)
 
-	c.Stuff()
-
 }
