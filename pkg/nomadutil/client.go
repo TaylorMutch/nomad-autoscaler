@@ -1,19 +1,19 @@
 package nomadutil
 
 import (
-	"flag"
 	"fmt"
-	"os"
 	"time"
 
 	"github.com/golang/glog"
 	nomad "github.com/hashicorp/nomad/api"
 )
 
+/*
 var (
 	nomadAddress = flag.String("address", os.Getenv("NOMAD_ADDR"), "The address for the Nomad HTTP API Endpoint. Default is `NOMAD_ADDR`.")
 	nomadRegion  = flag.String("region", os.Getenv("NOMAD_REGION"), "The region for where we want to perform Nomad job scaling. Default is `NOMAD_REGION`.")
 )
+*/
 
 // Client is a wrapper around the Nomad Client api
 type Client struct {
@@ -25,12 +25,8 @@ type Client struct {
 // NewClient creates a new nomad autoscaling client
 func NewClient() *Client {
 
-	config := nomad.Config{
-		Address: *nomadAddress,
-		Region:  *nomadRegion,
-	}
-
-	c, err := nomad.NewClient(&config)
+	config := nomad.DefaultConfig()
+	c, err := nomad.NewClient(config)
 	if err != nil {
 		glog.Fatalf("Could not initialize Nomad client: %v", err)
 	}
