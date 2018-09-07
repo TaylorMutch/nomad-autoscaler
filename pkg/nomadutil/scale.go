@@ -3,7 +3,6 @@ package nomadutil
 import (
 	"fmt"
 
-	"github.com/golang/glog"
 	"github.com/pkg/errors"
 )
 
@@ -33,7 +32,7 @@ func (c *Client) Scale(jobid string, count int) error {
 
 	// Report any warnings about the updated job to the user
 	if res.Warnings != "" {
-		glog.Infof("Updated job registered with warnings: %v", res.Warnings)
+		fmt.Printf("Updated job registered with warnings: %v\n", res.Warnings)
 	}
 
 	return nil

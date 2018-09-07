@@ -1,8 +1,7 @@
 package main
 
 import (
-	"flag"
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/TaylorMutch/nomad-autoscaler/command"
@@ -11,11 +10,16 @@ import (
 )
 
 func main() {
-	flag.Parse()
+	os.Exit(Run(os.Args[1:]))
+}
 
-	c := cli.NewCLI("nomad-autoscaler", version.GetVersion().FullVersionNumber(true))
-	c.Args = os.Args[1:]
-	c.Commands = map[string]cli.CommandFactory{
+func Run(args []string) int {
+	return RunCustom(args)
+}
+
+func RunCustom(args []string) int {
+
+	commands := map[string]cli.CommandFactory{
 		"scale": func() (cli.Command, error) {
 			return &command.ScaleCommand{}, nil
 		},
@@ -26,10 +30,26 @@ func main() {
 		},
 	}
 
-	exitStatus, err := c.Run()
-	if err != nil {
-		log.Println(err)
+	/*
+		ui := &cli.BasicUi{
+			Reader:      os.Stdin,
+			Writer:      os.Stdout,
+			ErrorWriter: os.Stderr,
+		}
+	*/
+
+	cli := &cli.CLI{
+		Name:     "nomad-autoscaler",
+		Version:  version.GetVersion().FullVersionNumber(true),
+		Args:     os.Args[1:],
+		Commands: commands,
 	}
 
-	os.Exit(exitStatus)
+	exitStatus, err := cli.Run()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error executing CLI: %s\n", err.Error())
+		return 1
+	}
+
+	return exitStatus
 }

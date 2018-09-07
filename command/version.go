@@ -6,7 +6,7 @@ import (
 	"github.com/TaylorMutch/nomad-autoscaler/version"
 )
 
-// VersionCommand is a Command implementation prints the version.
+// VersionCommand prints the version for the CLI
 type VersionCommand struct {
 	Version *version.VersionInfo
 }
