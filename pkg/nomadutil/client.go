@@ -15,7 +15,6 @@ type Client struct {
 // NewClient creates a new nomad autoscaling client
 func NewClient(config *nomad.Config) *Client {
 
-	//config := nomad.DefaultConfig()
 	c, err := nomad.NewClient(config)
 	if err != nil {
 		glog.Fatalf("Could not initialize Nomad client: %v", err)
